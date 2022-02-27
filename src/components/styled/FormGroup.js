@@ -21,6 +21,10 @@ const StyledFormGroup = styled(FormGroup)`
     padding: ${(props) => (props.withphoneprefix ? '2.25rem 1.5rem 0.75rem 6.25rem' : '2.25rem 1.5rem 0.75rem 1.5rem')};
     border-color: var(--grey);
     border-radius: 0.5rem;
+
+    &:focus {
+      box-shadow: 0 0 0 1px var(--primary-light);
+    }
   }
 
   ${(props) =>

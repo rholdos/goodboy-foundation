@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Col, FormLabel, FormControl } from 'react-bootstrap';
 
-import StyledStepHeading from '../styled/StepHeading';
+import StyledStepTitle from '../styled/StepTitle';
 import StyledFormGroup from '../styled/FormGroup';
 import StyledFormFieldError from '../styled/FormFieldError';
 import StyledButton from '../styled/Button';
@@ -36,7 +36,9 @@ const SecondStep = () => {
     if (!lastName) errors.lastName = 'Zadajte Vaše priezvisko';
     if (!EMAIL_REGEX.test(email)) errors.email = 'Zadajte Váš e-mail v správnom formáte';
     if (![SK_PHONE_PREFIX, CZ_PHONE_PREFIX].includes(phonePrefix)) errors.phonePrefix = 'Vyberte predvoľbu zo zoznamu';
-    if (!PHONE_REGEX.test(phoneNumber)) errors.phoneNumber = 'Zadajte Vaše telefónne číslo (9 číslic bez medzery)';
+    if (phoneNumber && !PHONE_REGEX.test(phoneNumber)) {
+      errors.phoneNumber = 'Číslo musí obsahovať 9 číslic bez medzier (Nepovinné pole)';
+    }
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -52,8 +54,8 @@ const SecondStep = () => {
 
   return (
     <Form onSubmit={(event) => event.preventDefault()}>
-      {/* Heading */}
-      <StyledStepHeading>Potrebujeme od Vás zopár informácií</StyledStepHeading>
+      {/* Title */}
+      <StyledStepTitle>Potrebujeme od Vás zopár informácií</StyledStepTitle>
       <span className='d-block fw-bold mb-half'>O vás</span>
       {/* First name input */}
       <StyledFormGroup controlId='first-name' marginbottom={1}>

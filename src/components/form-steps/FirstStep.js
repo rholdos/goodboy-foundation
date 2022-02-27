@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Col, FormLabel, FormSelect } from 'react-bootstrap';
 import axios from 'axios';
 
-import StyledStepHeading from '../styled/StepHeading';
+import StyledStepTitle from '../styled/StepTitle';
 import StyledTypeRadioButtons from '../styled/TypeRadioButtons';
 import StyledFormGroup from '../styled/FormGroup';
 import StyledAmountRadioButtons from '../styled/AmountRadioButtons';
@@ -31,7 +31,7 @@ const FirstStep = () => {
 
   const [availableShelters, setAvailableShelters] = useState([]);
   const [type, setType] = useState(contributionData.type || 'organization');
-  const [shelter, setShelter] = useState(contributionData.shelter || undefined);
+  const [shelter, setShelter] = useState(contributionData.shelter?.id || undefined);
   const [amountType, setAmountType] = useState(initialAmountType);
   const [amount, setAmount] = useState(contributionData.amount || 50);
   const [errors, setErrors] = useState({});
@@ -50,7 +50,8 @@ const FirstStep = () => {
   const dispatch = useDispatch();
   const nextStep = () => {
     if (validate()) {
-      dispatch(setContribution({ type, shelter, amount }));
+      const selectedShelter = availableShelters.find((item) => item.id === shelter) || undefined;
+      dispatch(setContribution({ type, shelter: selectedShelter, amount }));
       dispatch(setCurrentStep(currentStep + 1));
     }
   };
@@ -60,6 +61,8 @@ const FirstStep = () => {
       .get(GET_SHELTERS_URL)
       .then((response) => {
         if (response.data.shelters) {
+          console.log('available shelters');
+          console.log(response.data.shelters);
           setAvailableShelters(response.data.shelters);
         }
       })
@@ -68,8 +71,8 @@ const FirstStep = () => {
 
   return (
     <Form onSubmit={(event) => event.preventDefault()}>
-      {/* Heading */}
-      <StyledStepHeading>Vyberte si možnosť, ako chcete pomôcť</StyledStepHeading>
+      {/* Title */}
+      <StyledStepTitle>Vyberte si možnosť, ako chcete pomôcť</StyledStepTitle>
       {/* Type radio buttons */}
       <StyledTypeRadioButtons>
         <input
@@ -117,9 +120,9 @@ const FirstStep = () => {
       <StyledFormGroup controlId='shelter' marginbottom={2.5}>
         <FormLabel>Útulok</FormLabel>
         <FormSelect value={shelter} onChange={(event) => setShelter(+event.target.value)}>
-          <option value={0}>Vyberte útulok zo zoznamu</option>
+          <option value={undefined}>Vyberte útulok zo zoznamu</option>
           {availableShelters.map((shelter) => (
-            <option key={shelter.id} value={+shelter.id}>
+            <option key={`shelter-${shelter.id}`} value={shelter.id}>
               {shelter.name}
             </option>
           ))}
@@ -136,7 +139,7 @@ const FirstStep = () => {
                 type='radio'
                 name='amount'
                 id={`amount-${value}`}
-                value={+value}
+                value={value}
                 checked={amountType === 'fixed' && amount === +value}
                 onChange={(event) => {
                   setAmountType('fixed');

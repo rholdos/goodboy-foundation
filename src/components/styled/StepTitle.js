@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledStepHeading = styled.h1`
+const StyledStepTitle = styled.h1`
   font-family: 'Hind'
   font-size: 2.875rem;
   font-weight: bold;
@@ -9,4 +9,4 @@ const StyledStepHeading = styled.h1`
   margin-bottom: 1.75rem;
 `;
 
-export default StyledStepHeading;
+export default StyledStepTitle;
