@@ -1,0 +1,26 @@
+$primary: #cd8b65;
+
+$spacers: (
+  0: 0,
+  'quarter': 0.25rem,
+  'half': 0.5rem,
+  1: 1rem,
+  '1-half': 1.5rem,
+  2: 2rem,
+  '2-half': 2.5rem,
+  3: 3rem,
+  '3-half': 3.5rem,
+  4: 4rem
+);
+
+$font-sizes: (
+  xs: 0.75rem,
+  sm: 0.875rem,
+  md: 1rem,
+  lg: 1.125rem,
+  xl: 1.25rem
+);
+
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+@import '~bootstrap/scss/bootstrap-utilities';

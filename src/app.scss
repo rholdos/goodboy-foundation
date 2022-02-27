@@ -1,7 +1,22 @@
 :root {
   --white: #FFFFFF;
+  --grey-light: #FAF9F9;
+  --grey: #DFDFDF;
+  --grey-dark: #9F9F9F;
   --black: #000000;
+  --body: #2F2F2F;
+  --primary: #CD8B65;
+  --primary-light: #D9A88B;
+  --primary-dark: #C5784B;
+  --gradient-horizontal-primary: linear-gradient(90deg, #C5784B, #D9A88B);
+  --gradint-vertical-primary: linear-gradient(0deg, #C5784B, #D9A88B);
+  --secondary: #F3E2D9;
+  --secondary-dark: #EBCEBF;
+  --box-shadow: 0 25px 25px 0 rgba(0, 0, 0, 0.1);
+  --box-shadow-light: 0 20px 20px 0 rgba(0, 0, 0, 0.05);
+  --transition: .25s ease-out;
 }
 
 @import './scss/fonts';
+@import "./scss/bootstrap";
 @import "./scss/base";
