@@ -34,6 +34,26 @@ const FirstStep = () => {
   const [shelter, setShelter] = useState(contributionData.shelter || undefined);
   const [amountType, setAmountType] = useState(initialAmountType);
   const [amount, setAmount] = useState(contributionData.amount || 50);
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const errors = {};
+    if (!['organization', 'shelter'].includes(type)) errors.type = 'Zvoľte typ príspevku';
+    if (type === 'shelter' && !availableShelters.map((shelter) => shelter.id).includes(shelter))
+      errors.shelter = 'Vyberte útulok zo zoznamu';
+    if (amountType === 'fixed' && !FIXED_AMOUNTS.includes(amount)) errors.amount = 'Zvoľte sumu príspevku';
+    if (amountType === 'custom' && (!amount || +amount < 1)) errors.amount = 'Zadajte sumu príspevku';
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const dispatch = useDispatch();
+  const nextStep = () => {
+    if (validate()) {
+      dispatch(setContribution({ type, shelter, amount }));
+      dispatch(setCurrentStep(currentStep + 1));
+    }
+  };
 
   useEffect(() => {
     axios
@@ -46,21 +66,6 @@ const FirstStep = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  const dispatch = useDispatch();
-  const nextStep = () => {
-    if (!['organization', 'shelter'].includes(type)) return setType('error');
-    if (type === 'shelter') {
-      let availableSheltersIds = availableShelters.map((shelter) => shelter.id);
-      if (!availableSheltersIds.includes(shelter)) {
-        return setShelter('error');
-      }
-    }
-    if (amountType === 'fixed' && !FIXED_AMOUNTS.includes(amount)) return setAmount('error');
-    if (amountType === 'custom' && (!amount || +amount < 1)) return setAmount('error');
-    dispatch(setContribution({ type, shelter, amount }));
-    dispatch(setCurrentStep(currentStep + 1));
-  };
-
   return (
     <Form onSubmit={(event) => event.preventDefault()}>
       {/* Heading */}
@@ -69,13 +74,13 @@ const FirstStep = () => {
       <StyledTypeRadioButtons>
         <input
           type='radio'
-          name='help'
-          id='type'
+          name='type'
+          id='shelter'
           value='shelter'
           checked={type === 'shelter'}
           onChange={(event) => setType(event.target.value)}
         />
-        <label htmlFor='type'>
+        <label htmlFor='shelter'>
           <span className='icon-wrapper'>
             <WalletIcon />
           </span>
@@ -83,7 +88,7 @@ const FirstStep = () => {
         </label>
         <input
           type='radio'
-          name='help'
+          name='type'
           id='foundation'
           value='organization'
           checked={type === 'organization'}
@@ -98,7 +103,7 @@ const FirstStep = () => {
           </span>
           <span className='text'>Chcem finančne prispieť celej nadácii</span>
         </label>
-        {type === 'error' && <StyledFormFieldError>Zvoľte typ príspevku</StyledFormFieldError>}
+        {errors.type && <StyledFormFieldError>{errors.type}</StyledFormFieldError>}
       </StyledTypeRadioButtons>
       {/* Shelter select */}
       <Row className='justify-content-between align-items-center mb-half'>
@@ -111,10 +116,7 @@ const FirstStep = () => {
       </Row>
       <StyledFormGroup controlId='shelter' marginbottom={2.5}>
         <FormLabel>Útulok</FormLabel>
-        <FormSelect
-          value={shelter}
-          onChange={(event) => setShelter(+event.target.value)}
-        >
+        <FormSelect value={shelter} onChange={(event) => setShelter(+event.target.value)}>
           <option value={0}>Vyberte útulok zo zoznamu</option>
           {availableShelters.map((shelter) => (
             <option key={shelter.id} value={+shelter.id}>
@@ -122,7 +124,7 @@ const FirstStep = () => {
             </option>
           ))}
         </FormSelect>
-        {shelter === 'error' && <StyledFormFieldError>Zvoľte útulok</StyledFormFieldError>}
+        {errors.shelter && <StyledFormFieldError>{errors.shelter}</StyledFormFieldError>}
       </StyledFormGroup>
       {/* Amount radio buttons */}
       <span className='d-block fw-bold mb-half'>Suma, ktorou chcem prispieť</span>
@@ -166,13 +168,12 @@ const FirstStep = () => {
           />{' '}
           €
         </label>
-        {amountType === 'fixed' && amount === 'error' && <StyledFormFieldError>Zvoľte sumu</StyledFormFieldError>}
-        {amountType === 'custom' && amount === 'error' && <StyledFormFieldError>Zadajte sumu</StyledFormFieldError>}
+        {errors.amount && <StyledFormFieldError>{errors.amount}</StyledFormFieldError>}
       </StyledAmountRadioButtons>
       {/* Step buttons */}
       <Row className='justify-content-end align-items-center mt-4'>
         <Col xs='auto'>
-          <StyledButton type='button' variant='primary' onClick={() => nextStep()}>
+          <StyledButton type='submit' variant='primary' onClick={() => nextStep()}>
             Pokračovať
           </StyledButton>
         </Col>

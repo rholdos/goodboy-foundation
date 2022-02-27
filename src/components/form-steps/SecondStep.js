@@ -28,16 +28,26 @@ const SecondStep = () => {
   const [email, setEmail] = useState(contributorData.email || undefined);
   const [phonePrefix, setPhonePrefix] = useState(contributorData.phonePrefix || SK_PHONE_PREFIX);
   const [phoneNumber, setPhoneNumber] = useState(contributorData.phoneNumber || undefined);
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const errors = {};
+    if (!firstName) errors.firstName = 'Zadajte Vaše meno';
+    if (!lastName) errors.lastName = 'Zadajte Vaše priezvisko';
+    if (!EMAIL_REGEX.test(email)) errors.email = 'Zadajte Váš e-mail v správnom formáte';
+    if (![SK_PHONE_PREFIX, CZ_PHONE_PREFIX].includes(phonePrefix)) errors.phonePrefix = 'Vyberte predvoľbu zo zoznamu';
+    if (!PHONE_REGEX.test(phoneNumber)) errors.phoneNumber = 'Zadajte Vaše telefónne číslo (9 číslic bez medzery)';
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const dispatch = useDispatch();
   const previousStep = () => dispatch(setCurrentStep(currentStep - 1));
   const nextStep = () => {
-    if (!firstName) return setFirstName('error');
-    if (!lastName) return setLastName('error');
-    if (!EMAIL_REGEX.test(email)) return setEmail('error');
-    if (!PHONE_REGEX.test(phoneNumber)) return setPhoneNumber('error');
-    dispatch(setContributor({ firstName, lastName, email, phonePrefix, phoneNumber }));
-    dispatch(setCurrentStep(currentStep + 1));
+    if (validate()) {
+      dispatch(setContributor({ firstName, lastName, email, phonePrefix, phoneNumber }));
+      dispatch(setCurrentStep(currentStep + 1));
+    }
   };
 
   return (
@@ -51,10 +61,11 @@ const SecondStep = () => {
         <FormControl
           type='text'
           placeholder='Zadajte Vaše meno'
+          autoComplete='given-name'
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)}
         />
-        {firstName === 'error' && <StyledFormFieldError>Zadajte Vaše meno</StyledFormFieldError>}
+        {errors.firstName && <StyledFormFieldError>{errors.firstName}</StyledFormFieldError>}
       </StyledFormGroup>
       {/* Last name input */}
       <StyledFormGroup controlId='last-name' marginbottom={1}>
@@ -62,10 +73,11 @@ const SecondStep = () => {
         <FormControl
           type='text'
           placeholder='Zadajte Vaše priezvisko'
+          autoComplete='family-name'
           value={lastName}
           onChange={(event) => setLastName(event.target.value)}
         />
-        {lastName === 'error' && <StyledFormFieldError>Zadajte Vaše priezvisko</StyledFormFieldError>}
+        {errors.lastName && <StyledFormFieldError>{errors.lastName}</StyledFormFieldError>}
       </StyledFormGroup>
       {/* Email input */}
       <StyledFormGroup controlId='email' marginbottom={1}>
@@ -73,16 +85,22 @@ const SecondStep = () => {
         <FormControl
           type='email'
           placeholder='Zadajte Váš e-mail'
+          autoComplete='email'
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
-        {email === 'error' && <StyledFormFieldError>Zadajte Váš e-mail</StyledFormFieldError>}
+        {errors.email && <StyledFormFieldError>{errors.email}</StyledFormFieldError>}
       </StyledFormGroup>
       {/* Phone input */}
       <StyledFormGroup controlId='phone-number' marginbottom={1} withphoneprefix='true'>
         <FormLabel>Telefónne číslo</FormLabel>
-        <FormControl type='tel' value={phoneNumber} onChange={(event) => setPhoneNumber(event.target.value)} />
-        <div className="phone-prefix">
+        <FormControl
+          type='tel'
+          autoComplete='tel'
+          value={phoneNumber}
+          onChange={(event) => setPhoneNumber(event.target.value)}
+        />
+        <div className='phone-prefix'>
           <label htmlFor='phone-prefix'>
             {phonePrefix === SK_PHONE_PREFIX && (
               <>
@@ -97,15 +115,19 @@ const SecondStep = () => {
               </>
             )}
           </label>
-          <select id='phone-prefix' value={phonePrefix} onChange={(event) => {
-            setPhonePrefix(event.target.value);
-            event.target.previousElementSibling.parentElement.previousElementSibling.focus();
-          }}>
+          <select
+            id='phone-prefix'
+            value={phonePrefix}
+            onChange={(event) => {
+              setPhonePrefix(event.target.value);
+              event.target.previousElementSibling.parentElement.previousElementSibling.focus();
+            }}
+          >
             <option value={SK_PHONE_PREFIX}>Slovenské číslo</option>
             <option value={CZ_PHONE_PREFIX}>České číslo</option>
           </select>
         </div>
-        {phoneNumber === 'error' && <StyledFormFieldError>Zadajte Vaše telefónne číslo</StyledFormFieldError>}
+        {errors.phoneNumber && <StyledFormFieldError>{errors.phoneNumber}</StyledFormFieldError>}
       </StyledFormGroup>
       {/* Step buttons */}
       <Row className='justify-content-between align-items-center mt-4'>
@@ -115,7 +137,7 @@ const SecondStep = () => {
           </StyledButton>
         </Col>
         <Col xs='auto'>
-          <StyledButton type='button' variant='primary' onClick={() => nextStep()}>
+          <StyledButton type='submit' variant='primary' onClick={() => nextStep()}>
             Pokračovať
           </StyledButton>
         </Col>
