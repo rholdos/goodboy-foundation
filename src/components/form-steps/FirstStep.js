@@ -1,6 +1,7 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Col, FormLabel, FormSelect } from 'react-bootstrap';
+import axios from 'axios';
 
 import StyledStepHeading from '../styled/StepHeading';
 import StyledTypeRadioButtons from '../styled/TypeRadioButtons';
@@ -14,21 +15,40 @@ import { ReactComponent as PawIcon } from '../../icons/paw.svg';
 
 import { setCurrentStep } from '../../redux/actions/stepActions';
 
-const fixedAmounts = [5, 10, 15, 20, 30, 50, 100];
+const GET_SHELTERS_URL = 'https://frontend-assignment-api.goodrequest.dev/api/v1/shelters';
+const FIXED_AMOUNTS = [5, 10, 15, 20, 30, 50, 100];
 
 const FirstStep = () => {
-  const currentStep = useSelector((state) => state.steps.current);
-
   const [type, setType] = useState('organization');
-  const [shelter, setShelter] = useState(undefined);
+  const [availableShelters, setAvailableShelters] = useState([]);
+  const [shelter, setShelter] = useState(0);
   const [amountType, setAmountType] = useState('fixed');
-  const [amount, setAmount] = useState(40);
+  const [amount, setAmount] = useState(50);
 
+  const currentStep = useSelector((state) => state.steps.current);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios
+      .get(GET_SHELTERS_URL)
+      .then((response) => {
+        if (response.data.shelters) {
+          setAvailableShelters(response.data.shelters);
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   const nextStep = () => {
     if (!['organization', 'shelter'].includes(type)) return setType('error');
-    if (amountType === 'fixed' && !fixedAmounts.includes(amount)) return setAmount('error');
-    if (amountType === 'custom' && (!amount || amount < 0)) return setAmount('error');
+    if (type === 'shelter') {
+      let availableSheltersIds = availableShelters.map((shelter) => shelter.id);
+      if (!availableSheltersIds.includes(shelter)) {
+        return setShelter('error');
+      }
+    }
+    if (amountType === 'fixed' && !FIXED_AMOUNTS.includes(amount)) return setAmount('error');
+    if (amountType === 'custom' && (!amount || +amount < 1)) return setAmount('error');
     dispatch(setCurrentStep(currentStep + 1));
   };
 
@@ -58,7 +78,10 @@ const FirstStep = () => {
           id='foundation'
           value='organization'
           checked={type === 'organization'}
-          onChange={(event) => setType(event.target.value)}
+          onChange={(event) => {
+            setType(event.target.value);
+            setShelter(0);
+          }}
         />
         <label htmlFor='foundation'>
           <span className='icon-wrapper'>
@@ -81,20 +104,22 @@ const FirstStep = () => {
         <FormLabel>Útulok</FormLabel>
         <FormSelect
           value={shelter}
-          onChange={(event) => setShelter(event.target.value)}
+          onChange={(event) => setShelter(+event.target.value)}
           disabled={type === 'organization'}
         >
-          <option value={undefined}>Vyberte útulok zo zoznamu</option>
-          <option value={1}>One</option>
-          <option value={2}>Two</option>
-          <option value={3}>Three</option>
+          <option value={0}>Vyberte útulok zo zoznamu</option>
+          {availableShelters.map((shelter) => (
+            <option key={shelter.id} value={+shelter.id}>
+              {shelter.name}
+            </option>
+          ))}
         </FormSelect>
         {shelter === 'error' && <StyledFormFieldError>Zvoľte útulok</StyledFormFieldError>}
       </StyledFormGroup>
       {/* Amount radio buttons */}
       <span className='d-block fw-bold mb-half'>Suma, ktorou chcem prispieť</span>
       <StyledAmountRadioButtons>
-        {fixedAmounts.map((value, index) => {
+        {FIXED_AMOUNTS.map((value, index) => {
           return (
             <Fragment key={index}>
               <input
@@ -127,8 +152,8 @@ const FirstStep = () => {
         <label htmlFor='custom'>
           <input type='number' id='custom-value' onChange={(event) => setAmount(+event.target.value)} /> €
         </label>
-        {amountType === 'fixed' && amount === 'error' && (<StyledFormFieldError>Zvoľte sumu</StyledFormFieldError>)}
-        {amountType === 'custom' && amount === 'error' && (<StyledFormFieldError>Zadajte sumu</StyledFormFieldError>)}
+        {amountType === 'fixed' && amount === 'error' && <StyledFormFieldError>Zvoľte sumu</StyledFormFieldError>}
+        {amountType === 'custom' && amount === 'error' && <StyledFormFieldError>Zadajte sumu</StyledFormFieldError>}
       </StyledAmountRadioButtons>
       {/* Step buttons */}
       <Row className='justify-content-end align-items-center mt-4'>

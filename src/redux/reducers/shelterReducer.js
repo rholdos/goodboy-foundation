@@ -1,16 +1,11 @@
 import actionTypes from '../constants/actionTypes';
 
-const initialState = {
-  list: [],
-  selected: null
-};
+const initialState = 0;
 
 export const shelterReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case actionTypes.SET_SHELTERS:
-      return Object.assign({}, state, { list: payload });
-    case actionTypes.SET_SELECTED_SHELTER:
-      return Object.assign({}, state, { selected: payload });
+    case actionTypes.SET_SHELTER:
+      return Object.assign({}, state, { ...payload });
     default:
       return state;
   }

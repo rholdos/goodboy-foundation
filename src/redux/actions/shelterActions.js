@@ -1,15 +1,8 @@
 import actionTypes from '../constants/actionTypes';
 
-export const setShelters = (sheltersArray) => {
+export const setShelter = (shelter) => {
   return {
-    type: actionTypes.SET_SHELTERS,
-    payload: sheltersArray
-  };
-};
-
-export const setSelectedShelter = (shelterId) => {
-  return {
-    type: actionTypes.SET_SELECTED_SHELTER,
-    payload: shelterId
+    type: actionTypes.SET_SHELTER,
+    payload: shelter
   };
 };

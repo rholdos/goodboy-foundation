@@ -6,7 +6,7 @@ import { shelterReducer } from './reducers/shelterReducer';
 
 const reducers = combineReducers({
   steps: stepReducer,
-  shelters: shelterReducer
+  shelter: shelterReducer
 });
 
 export default createStore(reducers, {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

@@ -1,8 +1,6 @@
 const actionTypes = {
-  SET_CURRENT_STEP: 'SET_CURRENT_STEP',
-
-  SET_SHELTERS: 'SET_SHELTERS',
-  SET_SELECTED_SHELTER: 'SET_SELECTED_SHELTER'
+  SET_STEP: 'SET_STEP',
+  SET_SHELTER: 'SET_SHELTER'
 };
 
 export default actionTypes;
