@@ -1,6 +1,6 @@
 import actionTypes from '../constants/actionTypes';
 
-export const setConribution = (contributorDataObject) => {
+export const setContributor = (contributorDataObject) => {
   return {
     type: actionTypes.SET_CONTRIBUTOR,
     payload: contributorDataObject

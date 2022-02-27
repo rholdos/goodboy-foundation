@@ -20,14 +20,20 @@ const GET_SHELTERS_URL = 'https://frontend-assignment-api.goodrequest.dev/api/v1
 const FIXED_AMOUNTS = [5, 10, 15, 20, 30, 50, 100];
 
 const FirstStep = () => {
-  const [type, setType] = useState('organization');
-  const [availableShelters, setAvailableShelters] = useState([]);
-  const [shelter, setShelter] = useState(0);
-  const [amountType, setAmountType] = useState('fixed');
-  const [amount, setAmount] = useState(50);
-
   const currentStep = useSelector((state) => state.steps.current);
-  const dispatch = useDispatch();
+  const contributionData = useSelector((state) => state.contribution);
+
+  const initialAmountType = contributionData.amount
+    ? FIXED_AMOUNTS.includes(contributionData.amount)
+      ? 'fixed'
+      : 'custom'
+    : 'fixed';
+
+  const [availableShelters, setAvailableShelters] = useState([]);
+  const [type, setType] = useState(contributionData.type || 'organization');
+  const [shelter, setShelter] = useState(contributionData.shelter || undefined);
+  const [amountType, setAmountType] = useState(initialAmountType);
+  const [amount, setAmount] = useState(contributionData.amount || 50);
 
   useEffect(() => {
     axios
@@ -40,6 +46,7 @@ const FirstStep = () => {
       .catch((error) => console.error(error));
   }, []);
 
+  const dispatch = useDispatch();
   const nextStep = () => {
     if (!['organization', 'shelter'].includes(type)) return setType('error');
     if (type === 'shelter') {
@@ -50,7 +57,7 @@ const FirstStep = () => {
     }
     if (amountType === 'fixed' && !FIXED_AMOUNTS.includes(amount)) return setAmount('error');
     if (amountType === 'custom' && (!amount || +amount < 1)) return setAmount('error');
-    // dispatch(setConribution()); // TODO
+    dispatch(setContribution({ type, shelter, amount }));
     dispatch(setCurrentStep(currentStep + 1));
   };
 
@@ -82,7 +89,7 @@ const FirstStep = () => {
           checked={type === 'organization'}
           onChange={(event) => {
             setType(event.target.value);
-            setShelter(0);
+            setShelter(undefined);
           }}
         />
         <label htmlFor='foundation'>
@@ -107,7 +114,6 @@ const FirstStep = () => {
         <FormSelect
           value={shelter}
           onChange={(event) => setShelter(+event.target.value)}
-          disabled={type === 'organization'}
         >
           <option value={0}>Vyberte útulok zo zoznamu</option>
           {availableShelters.map((shelter) => (
@@ -147,12 +153,18 @@ const FirstStep = () => {
           checked={amountType === 'custom'}
           onChange={(event) => {
             setAmountType('custom');
-            setAmount(0);
+            setAmount('');
             event.target.nextElementSibling.querySelector('input#custom-value').focus();
           }}
         />
         <label htmlFor='custom'>
-          <input type='number' id='custom-value' onChange={(event) => setAmount(+event.target.value)} /> €
+          <input
+            type='number'
+            id='custom-value'
+            value={amountType === 'custom' ? amount : ''}
+            onChange={(event) => setAmount(+event.target.value)}
+          />{' '}
+          €
         </label>
         {amountType === 'fixed' && amount === 'error' && <StyledFormFieldError>Zvoľte sumu</StyledFormFieldError>}
         {amountType === 'custom' && amount === 'error' && <StyledFormFieldError>Zadajte sumu</StyledFormFieldError>}
