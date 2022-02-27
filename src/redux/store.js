@@ -2,11 +2,13 @@ import { createStore } from 'redux';
 import { combineReducers } from 'redux';
 
 import { stepReducer } from './reducers/stepReducer';
-import { shelterReducer } from './reducers/shelterReducer';
+import { contributionReducer } from './reducers/contributionReducer';
+import { contributorReducer } from './reducers/contributorReducer';
 
 const reducers = combineReducers({
   steps: stepReducer,
-  shelter: shelterReducer
+  contribution: contributionReducer,
+  contributor: contributorReducer
 });
 
 export default createStore(reducers, {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

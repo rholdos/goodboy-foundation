@@ -14,6 +14,7 @@ import { ReactComponent as WalletIcon } from '../../icons/wallet.svg';
 import { ReactComponent as PawIcon } from '../../icons/paw.svg';
 
 import { setCurrentStep } from '../../redux/actions/stepActions';
+import { setContribution } from '../../redux/actions/contributionActions';
 
 const GET_SHELTERS_URL = 'https://frontend-assignment-api.goodrequest.dev/api/v1/shelters';
 const FIXED_AMOUNTS = [5, 10, 15, 20, 30, 50, 100];
@@ -49,6 +50,7 @@ const FirstStep = () => {
     }
     if (amountType === 'fixed' && !FIXED_AMOUNTS.includes(amount)) return setAmount('error');
     if (amountType === 'custom' && (!amount || +amount < 1)) return setAmount('error');
+    // dispatch(setConribution()); // TODO
     dispatch(setCurrentStep(currentStep + 1));
   };
 
