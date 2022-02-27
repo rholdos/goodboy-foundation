@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const StyledAmountRadioButtons = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 1rem;
 
   input[type='radio'] {

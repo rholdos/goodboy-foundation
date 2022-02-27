@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-const StyledOptionRadioButtons = styled.div`
+const StyledTypeRadioButtons = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 3.5rem;
 
   input[type='radio'] {
@@ -68,4 +69,4 @@ const StyledOptionRadioButtons = styled.div`
   }
 `;
 
-export default StyledOptionRadioButtons;
+export default StyledTypeRadioButtons;
