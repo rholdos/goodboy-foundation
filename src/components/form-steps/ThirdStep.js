@@ -21,7 +21,7 @@ const ThirdStep = () => {
       {/* Heading */}
       <StyledStepHeading>Skontrolujte si zadané údaje</StyledStepHeading>
       {/* Step buttons */}
-      <Row className='justify-content-between align-items-center'>
+      <Row className='justify-content-between align-items-center mt-4'>
         <Col xs='auto'>
           <StyledButton type='button' variant='secondary' onClick={() => previousStep()}>
             Späť
