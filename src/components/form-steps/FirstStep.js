@@ -154,7 +154,7 @@ const FirstStep = () => {
           onChange={(event) => {
             setAmountType('custom');
             setAmount('');
-            event.target.nextElementSibling.querySelector('input#custom-value').focus();
+            event.target.nextElementSibling.querySelector('input').focus();
           }}
         />
         <label htmlFor='custom'>

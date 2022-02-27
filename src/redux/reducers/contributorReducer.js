@@ -1,9 +1,11 @@
 import actionTypes from '../constants/actionTypes';
 
 const initialState = {
-  name: undefined,
+  firstName: undefined,
+  lastName: undefined,
   email: undefined,
-  phone: undefined
+  phonePrefix: undefined,
+  phoneNumber: undefined
 };
 
 export const contributorReducer = (state = initialState, { type, payload }) => {

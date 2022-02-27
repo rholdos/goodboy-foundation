@@ -18,7 +18,7 @@ const StyledFormGroup = styled(FormGroup)`
 
   .form-control,
   .form-select {
-    padding: ${(props) => (props.withphoneprefix ? '2.25rem 1.5rem 0.75rem 6rem' : '2.25rem 1.5rem 0.75rem 1.5rem')};
+    padding: ${(props) => (props.withphoneprefix ? '2.25rem 1.5rem 0.75rem 6.25rem' : '2.25rem 1.5rem 0.75rem 1.5rem')};
     border-color: var(--grey);
     border-radius: 0.5rem;
   }
@@ -26,17 +26,30 @@ const StyledFormGroup = styled(FormGroup)`
   ${(props) =>
     props.withphoneprefix &&
     css`
-      .flag-prefix {
+      .phone-prefix {
         position: absolute;
-        bottom: 0.75rem;
+        top: 2.3125rem;
         left: 1.5rem;
         display: inline-flex;
-        align-items: center;
-        color: var(--grey-dark);
 
-        .icon {
-          font-size: 1.5rem;
-          margin-right: 0.25rem;
+        label {
+          color: var(--grey-dark);
+
+          .icon {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+            transform: translateY(-2px);
+          }
+        }
+
+        select {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          opacity: 0;
+          border: none;
+          cursor: pointer;
         }
       }
     `};
