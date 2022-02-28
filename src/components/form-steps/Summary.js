@@ -56,7 +56,12 @@ const Summary = () => {
       {/* Title */}
       <StyledStepTitle>{submitted ? t('summaryTitleSubmitted') : t('summaryTitleNotSubmitted')}</StyledStepTitle>
       {/* Success message */}
-      {submitted && typeof submitted === 'string' && <p>{submitted}</p>}
+      {submitted && (
+        <>
+          <p>{submitted}</p>
+          <a href='/'>{t('startAgain')}</a>
+        </>
+      )}
       {/* Summary */}
       {!submitted && (
         <>

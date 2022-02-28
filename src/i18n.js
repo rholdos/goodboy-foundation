@@ -23,6 +23,7 @@ i18n.use(initReactI18next).init({
         back: 'Späť',
         continue: 'Pokračovať',
         submit: 'Odoslať formulár',
+        startAgain: 'Začať znova',
         // form - contribution step (1st)
         contributionTitle: 'Vyberte si možnosť, ako chcete pomôcť',
         typeShelterLabel: 'Chcem finančne prispieť konkrétnemu útulku',

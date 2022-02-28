@@ -16,7 +16,8 @@ const StyledHeader = styled.header`
   }
 `;
 
-const StyledSitename = styled.span`
+const StyledSitename = styled.a`
+  text-decoration: none;
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1;
@@ -52,7 +53,7 @@ const Header = () => {
       <Container>
         <Row className='justify-content-between align-items-center'>
           <Col xs='auto'>
-            <StyledSitename>{t('sitename')}</StyledSitename>
+            <StyledSitename href='/'>{t('sitename')}</StyledSitename>
           </Col>
           <Col xs='auto'>
             <a href='https://facebook.com' target='_blank' rel='noreferrer'>
