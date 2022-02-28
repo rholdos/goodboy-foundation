@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Form, Row, Col, FormCheck } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -13,6 +14,8 @@ import { setCurrentStep } from '../../redux/actions/stepActions';
 const POST_CONTRIBUTION_URL = 'https://frontend-assignment-api.goodrequest.dev/api/v1/shelters/contribute';
 
 const ThirdStep = () => {
+  const { t } = useTranslation();
+
   const currentStep = useSelector((state) => state.steps.current);
   const { type, shelter, amount } = useSelector((state) => state.contribution);
   const { firstName, lastName, email, phonePrefix, phoneNumber } = useSelector((state) => state.contributor);
@@ -23,7 +26,7 @@ const ThirdStep = () => {
 
   const validate = () => {
     const errors = {};
-    if (!consent) errors.consent = 'Pre odoslanie príspevku musíte súhlasíť so spracovaním osobných údajov';
+    if (!consent) errors.consent = t('consentError');
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -51,36 +54,36 @@ const ThirdStep = () => {
   return (
     <Form onSubmit={(event) => event.preventDefault()}>
       {/* Title */}
-      <StyledStepTitle>{submitted ? 'Ďakujeme' : 'Skontrolujte si zadané údaje'}</StyledStepTitle>
+      <StyledStepTitle>{submitted ? t('summaryTitleSubmitted') : t('summaryTitleNotSubmitted')}</StyledStepTitle>
       {/* Success message */}
       {submitted && typeof submitted === 'string' && <p>{submitted}</p>}
       {/* Summary */}
       {!submitted && (
         <>
           {/* Values */}
-          <h4 className='fs-sm fw-bold mb-half'>Akou formou chcem pomôcť</h4>
+          <h4 className='fs-sm fw-bold mb-half'>{t('summaryType')}</h4>
           <span className='d-block mb-1-half'>
-            {type === 'organization' && 'Chcem finančne prispieť celej nadácii'}
-            {type === 'shelter' && 'Chcem finančne prispieť konkrétnemu útulku'}
+            {type === 'shelter' && t('summaryTypeShelter')}
+            {type === 'organization' && t('summaryTypeOrganization')}
           </span>
-          <h4 className='fs-sm fw-bold mb-half'>Najviac mi záleží na útulku</h4>
-          <span className='d-block mb-1-half'>{shelter?.name || 'Nezvolené'}</span>
-          <h4 className='fs-sm fw-bold mb-half'>Suma ktorou chcem pomôcť</h4>
+          <h4 className='fs-sm fw-bold mb-half'>{t('summaryShelter')}</h4>
+          <span className='d-block mb-1-half'>{shelter?.name || t('notSelected')}</span>
+          <h4 className='fs-sm fw-bold mb-half'>{t('summaryAmount')}</h4>
           <span className='d-block mb-1-half'>{`${amount} €`}</span>
-          <h4 className='fs-sm fw-bold mb-half'>Meno a priezvisko</h4>
+          <h4 className='fs-sm fw-bold mb-half'>{t('summaryName')}</h4>
           <span className='d-block mb-1-half'>{`${firstName} ${lastName}`}</span>
-          <h4 className='fs-sm fw-bold mb-half'>E-mailová adresa</h4>
+          <h4 className='fs-sm fw-bold mb-half'>{t('summaryEmail')}</h4>
           <span className='d-block mb-1-half'>{email}</span>
-          <h4 className='fs-sm fw-bold mb-half'>Telefónne číslo</h4>
+          <h4 className='fs-sm fw-bold mb-half'>{t('summaryPhone')}</h4>
           <span className='d-block mb-1-half'>
-            {phoneNumber ? `${phonePrefix} ${phoneNumber.replace(/(\d{3})/g, '$1 ').trim()}` : 'Nezadané'}
+            {phoneNumber ? `${phonePrefix} ${phoneNumber.replace(/(\d{3})/g, '$1 ').trim()}` : t('notProvided')}
           </span>
           {/* Consent checkbox */}
           <StyledFormGroup controlId='last-name' marginbottom={1}>
             <FormCheck
               type='checkbox'
               id='consent'
-              label='Súhlasím so spracovaním mojich osobných údajov'
+              label={t('consentLabel')}
               autoComplete='off'
               checked={consent}
               onChange={() => setConsent(!consent)}
@@ -91,12 +94,12 @@ const ThirdStep = () => {
           <Row className='justify-content-between align-items-center mt-4'>
             <Col xs='auto'>
               <StyledButton type='button' variant='secondary' onClick={() => previousStep()}>
-                Späť
+                {t('back')}
               </StyledButton>
             </Col>
             <Col xs='auto'>
               <StyledButton type='submit' variant='primary' onClick={() => nextStep()}>
-                Odoslať formulár
+                {t('submit')}
               </StyledButton>
             </Col>
           </Row>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import { ReactComponent as FacebookIcon } from '../icons/facebook.svg';
 import { ReactComponent as InstagramIcon } from '../icons/instagram.svg';
@@ -40,12 +41,14 @@ const StyledInstagramIcon = styled(InstagramIcon)`
 `;
 
 const Header = () => {
+  const { t } = useTranslation();
+
   return (
     <StyledHeader>
       <Container>
         <Row className='justify-content-between align-items-center'>
           <Col xs='auto'>
-            <StyledSitename>Nadácia Good Boy</StyledSitename>
+            <StyledSitename>{t('sitename')}</StyledSitename>
           </Col>
           <Col xs='auto'>
             <a href='https://facebook.com' target='_blank' rel='noreferrer'>

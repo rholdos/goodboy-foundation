@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import { ReactComponent as LogoIcon } from '../icons/logo.svg';
 
@@ -15,6 +16,8 @@ const StyledFooterLogoIcon = styled(LogoIcon)`
 `;
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <Container>
       <StyledFooter>
@@ -23,18 +26,18 @@ const Footer = () => {
             <StyledFooterLogoIcon className='icon' />
           </Col>
           <Col lg={{ offset: 1, span: 2 }}>
-            <span className='d-block fw-bold mb-1-half'>Nadácia Good Boy</span>
-            <p>O projekte</p>
-            <p>Ako na to</p>
-            <p>Kontakt</p>
+            <span className='d-block fw-bold mb-1-half'>{t('sitename')}</span>
+            <p>{t('aboutProject')}</p>
+            <p>{t('howTo')}</p>
+            <p>{t('contact')}</p>
           </Col>
           <Col lg={{ offset: 1, span: 2 }}>
-            <span className='d-block fw-bold mb-1-half'>Nadácia Good Boy</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in interdum ipsum, sit amet.</p>
+            <span className='d-block fw-bold mb-1-half'>{t('sitename')}</span>
+            <p>{t('footerColText')}</p>
           </Col>
           <Col lg={{ offset: 1, span: 2 }}>
-            <span className='d-block fw-bold mb-1-half'>Nadácia Good Boy</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in interdum ipsum, sit amet. </p>
+            <span className='d-block fw-bold mb-1-half'>{t('sitename')}</span>
+            <p>{t('footerColText')}</p>
           </Col>
         </Row>
       </StyledFooter>

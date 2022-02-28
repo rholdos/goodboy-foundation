@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Form, Row, Col, FormLabel, FormControl } from 'react-bootstrap';
 
 import StyledStepTitle from '../styled/StepTitle';
@@ -17,9 +18,11 @@ const SK_PHONE_PREFIX = '+421';
 const CZ_PHONE_PREFIX = '+420';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_REGEX = /^[0-9]{0,9}$/;
+const PHONE_REGEX = /^[0-9]{9}$/;
 
 const SecondStep = () => {
+  const { t } = useTranslation();
+
   const currentStep = useSelector((state) => state.steps.current);
   const contributorData = useSelector((state) => state.contributor);
 
@@ -32,13 +35,10 @@ const SecondStep = () => {
 
   const validate = () => {
     const errors = {};
-    if (!firstName) errors.firstName = 'Zadajte Vaše meno';
-    if (!lastName) errors.lastName = 'Zadajte Vaše priezvisko';
-    if (!EMAIL_REGEX.test(email)) errors.email = 'Zadajte Váš e-mail v správnom formáte';
-    if (![SK_PHONE_PREFIX, CZ_PHONE_PREFIX].includes(phonePrefix)) errors.phonePrefix = 'Vyberte predvoľbu zo zoznamu';
-    if (phoneNumber && !PHONE_REGEX.test(phoneNumber)) {
-      errors.phoneNumber = 'Číslo musí obsahovať 9 číslic bez medzier (Nepovinné pole)';
-    }
+    if (!lastName) errors.lastName = t('lastNameError');
+    if (!EMAIL_REGEX.test(email)) errors.email = t('emailError');
+    if (![SK_PHONE_PREFIX, CZ_PHONE_PREFIX].includes(phonePrefix)) errors.phonePrefix = t('phonePrefixError');
+    if (phoneNumber && !PHONE_REGEX.test(phoneNumber)) errors.phoneNumber = t('phoneNumberError');
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -55,26 +55,25 @@ const SecondStep = () => {
   return (
     <Form onSubmit={(event) => event.preventDefault()}>
       {/* Title */}
-      <StyledStepTitle>Potrebujeme od Vás zopár informácií</StyledStepTitle>
-      <span className='d-block fw-bold mb-half'>O vás</span>
+      <StyledStepTitle>{t('contributorTitle')}</StyledStepTitle>
+      <span className='d-block fw-bold mb-half'>{t('contributorSubtite')}</span>
       {/* First name input */}
       <StyledFormGroup controlId='first-name' marginbottom={1}>
-        <FormLabel>Meno</FormLabel>
+        <FormLabel>{t('firstNameLabel')}</FormLabel>
         <FormControl
           type='text'
-          placeholder='Zadajte Vaše meno'
+          placeholder={t('firstNamePlaceholder')}
           autoComplete='given-name'
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)}
         />
-        {errors.firstName && <StyledFormFieldError>{errors.firstName}</StyledFormFieldError>}
       </StyledFormGroup>
       {/* Last name input */}
       <StyledFormGroup controlId='last-name' marginbottom={1}>
-        <FormLabel>Priezvisko</FormLabel>
+        <FormLabel>{t('lastNameLabel')}</FormLabel>
         <FormControl
           type='text'
-          placeholder='Zadajte Vaše priezvisko'
+          placeholder={t('lastNamePlaceholder')}
           autoComplete='family-name'
           value={lastName}
           onChange={(event) => setLastName(event.target.value)}
@@ -83,10 +82,10 @@ const SecondStep = () => {
       </StyledFormGroup>
       {/* Email input */}
       <StyledFormGroup controlId='email' marginbottom={1}>
-        <FormLabel>E-mailová adresa</FormLabel>
+        <FormLabel>{t('emailLabel')}</FormLabel>
         <FormControl
           type='email'
-          placeholder='Zadajte Váš e-mail'
+          placeholder={t('emailPlaceholder')}
           autoComplete='email'
           value={email}
           onChange={(event) => setEmail(event.target.value)}
@@ -95,7 +94,7 @@ const SecondStep = () => {
       </StyledFormGroup>
       {/* Phone input */}
       <StyledFormGroup controlId='phone-number' marginbottom={1} withphoneprefix='true'>
-        <FormLabel>Telefónne číslo</FormLabel>
+        <FormLabel>{t('phoneNumberLabel')}</FormLabel>
         <FormControl
           type='tel'
           autoComplete='tel'
@@ -125,8 +124,8 @@ const SecondStep = () => {
               event.target.previousElementSibling.parentElement.previousElementSibling.focus();
             }}
           >
-            <option value={SK_PHONE_PREFIX}>Slovenské číslo</option>
-            <option value={CZ_PHONE_PREFIX}>České číslo</option>
+            <option value={SK_PHONE_PREFIX}>{t('skNumberOption')}</option>
+            <option value={CZ_PHONE_PREFIX}>{t('czNumberOption')}</option>
           </select>
         </div>
         {errors.phoneNumber && <StyledFormFieldError>{errors.phoneNumber}</StyledFormFieldError>}
@@ -135,12 +134,12 @@ const SecondStep = () => {
       <Row className='justify-content-between align-items-center mt-4'>
         <Col xs='auto'>
           <StyledButton type='button' variant='secondary' onClick={() => previousStep()}>
-            Späť
+            {t('back')}
           </StyledButton>
         </Col>
         <Col xs='auto'>
           <StyledButton type='submit' variant='primary' onClick={() => nextStep()}>
-            Pokračovať
+            {t('continue')}
           </StyledButton>
         </Col>
       </Row>
