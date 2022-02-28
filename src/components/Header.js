@@ -10,6 +10,10 @@ const StyledHeader = styled.header`
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0;
   margin-bottom: 5.5rem;
+
+  @media (max-width: 991px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const StyledSitename = styled.span`

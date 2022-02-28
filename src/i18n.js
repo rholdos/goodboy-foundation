@@ -38,6 +38,7 @@ i18n.use(initReactI18next).init({
         contributorSubtite: 'O vás',
         firstNameLabel: 'Meno',
         firstNamePlaceholder: 'Zadajte Vaše meno',
+        firstNameError: 'Zadajte Vaše meno',
         lastNameLabel: 'Priezvisko',
         lastNamePlaceholder: 'Zadajte Vaše priezvisko',
         lastNameError: 'Zadajte Vaše priezvisko',

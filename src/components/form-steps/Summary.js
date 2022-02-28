@@ -37,12 +37,12 @@ const Summary = () => {
     if (validate()) {
       axios
         .post(POST_CONTRIBUTION_URL, {
-          shelterID: shelter?.id || undefined,
-          value: amount.toString(),
-          firstName,
-          lastName,
-          email,
-          phone: `${phonePrefix} ${phoneNumber}`
+          ...(shelter && { shelterID: shelter.id }),
+          ...(amount && { value: amount.toString() }),
+          ...(firstName && { firstName: firstName }),
+          ...(lastName && { lastName: lastName }),
+          ...(email && { email: email }),
+          ...(phoneNumber && { phone: `${phonePrefix} ${phoneNumber}` })
         })
         .then((response) => {
           if (response.status === 200) setSubmitted(response.data.messages[0].message);
@@ -71,7 +71,7 @@ const Summary = () => {
           <h4 className='fs-sm fw-bold mb-half'>{t('summaryAmount')}</h4>
           <span className='d-block mb-1-half'>{`${amount} €`}</span>
           <h4 className='fs-sm fw-bold mb-half'>{t('summaryName')}</h4>
-          <span className='d-block mb-1-half'>{`${firstName} ${lastName}`}</span>
+          <span className='d-block mb-1-half'>{`${firstName || ''} ${lastName}`}</span>
           <h4 className='fs-sm fw-bold mb-half'>{t('summaryEmail')}</h4>
           <span className='d-block mb-1-half'>{email}</span>
           <h4 className='fs-sm fw-bold mb-half'>{t('summaryPhone')}</h4>

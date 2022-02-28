@@ -19,7 +19,7 @@ function App() {
               <Stepper />
               <Form />
             </Col>
-            <Col lg={{ offset: 1, span: 4 }}>
+            <Col lg={{ offset: 1, span: 4 }} className='d-none d-lg-block'>
               <Image fluid src={doggoImg} alt='Dog drinking from a puddle' className='mt-1-half' />
             </Col>
           </Row>

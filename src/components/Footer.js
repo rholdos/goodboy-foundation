@@ -8,11 +8,17 @@ const StyledFooter = styled.footer`
   border-top: solid 1px rgba(47, 47, 47, 0.15);
   padding-top: 6rem;
   margin: 7.5rem 0;
+
+  @media (max-width: 991px) {
+    padding-top: 3rem;
+    margin: 3.5rem 0;
+  }
 `;
 
 const StyledFooterLogoIcon = styled(LogoIcon)`
   width: 13.75rem;
   height: auto;
+  margin-bottom: 2rem;
 `;
 
 const Footer = () => {

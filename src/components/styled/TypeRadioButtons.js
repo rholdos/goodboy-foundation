@@ -29,6 +29,10 @@ const StyledTypeRadioButtons = styled.div`
       margin-left: -1px;
     }
 
+    @media (max-width: 991px) {
+      padding: 1.5rem;
+    }
+
     .icon-wrapper {
       display: inline-flex;
       justify-content: center;

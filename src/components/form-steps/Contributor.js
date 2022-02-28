@@ -35,6 +35,7 @@ const Contributor = () => {
 
   const validate = () => {
     const errors = {};
+    if (!firstName) errors.firstName = t('firstNameError');
     if (!lastName) errors.lastName = t('lastNameError');
     if (!EMAIL_REGEX.test(email)) errors.email = t('emailError');
     if (![SK_PHONE_PREFIX, CZ_PHONE_PREFIX].includes(phonePrefix)) errors.phonePrefix = t('phonePrefixError');
@@ -67,6 +68,7 @@ const Contributor = () => {
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)}
         />
+        {errors.firstName && <StyledFormError>{errors.firstName}</StyledFormError>}
       </StyledFormGroup>
       {/* Last name input */}
       <StyledFormGroup controlId='last-name' marginbottom={1}>

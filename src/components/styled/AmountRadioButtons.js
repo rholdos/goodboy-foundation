@@ -19,6 +19,7 @@ const StyledAmountRadioButtons = styled.div`
     padding: 1rem;
     border: solid 1px var(--grey);
     border-radius: 0.5rem;
+    margin-bottom: 0.375rem;
     transition: color var(--transition), background var(--transition), border-color var(--transition);
     cursor: pointer;
 
