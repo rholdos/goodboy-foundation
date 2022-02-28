@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, Col, FormCheck } from 'react-bootstrap';
+import MetaTags from 'react-meta-tags';
 import axios from 'axios';
 
 import StyledStepTitle from '../styled/StepTitle';
@@ -53,6 +54,12 @@ const Summary = () => {
 
   return (
     <Form onSubmit={(event) => event.preventDefault()}>
+      {/* Meta tags */}
+      <MetaTags>
+        <title>{`${t('summary')} - ${t('sitename')}`}</title>
+        <meta name='description' content={t('summaryTitle')} />
+        <meta property='og:image' content='../../icons/logo.svg' />
+      </MetaTags>
       {/* Title */}
       <StyledStepTitle>{submitted ? t('summaryTitleSubmitted') : t('summaryTitleNotSubmitted')}</StyledStepTitle>
       {/* Success message */}

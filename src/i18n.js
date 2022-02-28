@@ -10,6 +10,10 @@ i18n.use(initReactI18next).init({
   resources: {
     sk: {
       translation: {
+        // meta titles
+        contribution: 'Príspevok',
+        contributor: 'Osobné údaje',
+        summary: 'Zhrnutie',
         // general
         sitename: 'Nadácia Good Boy',
         aboutProject: 'O projekte',

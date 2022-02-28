@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import MetaTags from 'react-meta-tags';
 import { Form, Row, Col, FormLabel, FormSelect } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -74,6 +75,12 @@ const Contribution = () => {
 
   return (
     <Form onSubmit={(event) => event.preventDefault()}>
+      {/* Meta tags */}
+      <MetaTags>
+        <title>{`${t('contribution')} - ${t('sitename')}`}</title>
+        <meta name='description' content={t('contributionTitle')} />
+        <meta property='og:image' content='../../icons/logo.svg' />
+      </MetaTags>
       {/* Title */}
       <StyledStepTitle>{t('contributionTitle')}</StyledStepTitle>
       {/* Type radio buttons */}

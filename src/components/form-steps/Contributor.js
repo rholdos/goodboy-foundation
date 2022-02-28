@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import MetaTags from 'react-meta-tags';
 import { Form, Row, Col, FormLabel, FormControl } from 'react-bootstrap';
 
 import StyledStepTitle from '../styled/StepTitle';
@@ -60,6 +61,12 @@ const Contributor = () => {
 
   return (
     <Form onSubmit={(event) => event.preventDefault()}>
+      {/* Meta tags */}
+      <MetaTags>
+        <title>{`${t('contributor')} - ${t('sitename')}`}</title>
+        <meta name='description' content={t('contributorTitle')} />
+        <meta property='og:image' content='../../icons/logo.svg' />
+      </MetaTags>
       {/* Title */}
       <StyledStepTitle>{t('contributorTitle')}</StyledStepTitle>
       <span className='d-block fw-bold mb-half'>{t('contributorSubtite')}</span>
