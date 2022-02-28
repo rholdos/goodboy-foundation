@@ -6,7 +6,7 @@ import { Form, Row, Col, FormLabel, FormControl } from 'react-bootstrap';
 import StyledStepTitle from '../styled/StepTitle';
 import StyledFormGroup from '../styled/FormGroup';
 import StyledFormError from '../styled/FormError';
-import StyledButton from '../styled/Button';
+import StyledLink from '../styled/Link';
 
 import { ReactComponent as FlagSKIcon } from '../../icons/flag-sk.svg';
 import { ReactComponent as FlagCZIcon } from '../../icons/flag-cz.svg';
@@ -46,10 +46,12 @@ const Contributor = () => {
 
   const dispatch = useDispatch();
   const previousStep = () => dispatch(setCurrentStep(currentStep - 1));
-  const nextStep = () => {
+  const nextStep = (event) => {
     if (validate()) {
       dispatch(setContributor({ firstName, lastName, email, phonePrefix, phoneNumber }));
       dispatch(setCurrentStep(currentStep + 1));
+    } else {
+      event.preventDefault();
     }
   };
 
@@ -135,14 +137,14 @@ const Contributor = () => {
       {/* Step buttons */}
       <Row className='justify-content-between align-items-center mt-3'>
         <Col xs='auto'>
-          <StyledButton type='button' variant='secondary' onClick={() => previousStep()}>
+          <StyledLink to='/contribution' variant='secondary' onClick={() => previousStep()}>
             {t('back')}
-          </StyledButton>
+          </StyledLink>
         </Col>
         <Col xs='auto'>
-          <StyledButton type='submit' variant='primary' onClick={() => nextStep()}>
+          <StyledLink to='/summary' variant='primary' onClick={(event) => nextStep(event)}>
             {t('continue')}
-          </StyledButton>
+          </StyledLink>
         </Col>
       </Row>
     </Form>

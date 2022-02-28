@@ -9,7 +9,7 @@ import StyledTypeRadioButtons from '../styled/TypeRadioButtons';
 import StyledFormGroup from '../styled/FormGroup';
 import StyledAmountRadioButtons from '../styled/AmountRadioButtons';
 import StyledFormError from '../styled/FormError';
-import StyledButton from '../styled/Button';
+import StyledLink from '../styled/Link';
 
 import { ReactComponent as WalletIcon } from '../../icons/wallet.svg';
 import { ReactComponent as PawIcon } from '../../icons/paw.svg';
@@ -51,11 +51,13 @@ const Contribution = () => {
   };
 
   const dispatch = useDispatch();
-  const nextStep = () => {
+  const nextStep = (event) => {
     if (validate()) {
       const selectedShelter = availableShelters.find((item) => item.id === shelter) || undefined;
       dispatch(setContribution({ type, shelter: selectedShelter, amount }));
       dispatch(setCurrentStep(currentStep + 1));
+    } else {
+      event.preventDefault();
     }
   };
 
@@ -177,9 +179,9 @@ const Contribution = () => {
       {/* Step buttons */}
       <Row className='justify-content-end align-items-center mt-3'>
         <Col xs='auto'>
-          <StyledButton type='submit' variant='primary' onClick={() => nextStep()}>
+          <StyledLink to='/contributor' variant='primary' onClick={(event) => nextStep(event)}>
             {t('continue')}
-          </StyledButton>
+          </StyledLink>
         </Col>
       </Row>
     </Form>

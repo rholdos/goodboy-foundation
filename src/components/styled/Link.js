@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 const handleVariant = (variant) => {
@@ -32,9 +33,10 @@ const handleVariant = (variant) => {
   }
 };
 
-const StyledButton = styled.button`
+const StyledLink = styled(Link)`
   display: inline-flex;
   align-items: center;
+  text-decoration: none;
   text-align: center;
   font-size: 0.875rem;
   line-height: 1.35;
@@ -54,4 +56,4 @@ const StyledButton = styled.button`
   ${({ variant }) => handleVariant(variant)};
 `;
 
-export default StyledButton;
+export default StyledLink;

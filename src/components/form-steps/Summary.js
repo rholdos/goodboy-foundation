@@ -7,7 +7,7 @@ import axios from 'axios';
 import StyledStepTitle from '../styled/StepTitle';
 import StyledFormGroup from '../styled/FormGroup';
 import StyledFormError from '../styled/FormError';
-import StyledButton from '../styled/Button';
+import StyledLink from '../styled/Link';
 
 import { setCurrentStep } from '../../redux/actions/stepActions';
 
@@ -93,14 +93,14 @@ const Summary = () => {
           {/* Step buttons */}
           <Row className='justify-content-between align-items-center mt-3'>
             <Col xs='auto'>
-              <StyledButton type='button' variant='secondary' onClick={() => previousStep()}>
+              <StyledLink to='/contributor' variant='secondary' onClick={() => previousStep()}>
                 {t('back')}
-              </StyledButton>
+              </StyledLink>
             </Col>
             <Col xs='auto'>
-              <StyledButton type='submit' variant='primary' onClick={() => nextStep()}>
-                {t('submit')}
-              </StyledButton>
+              <StyledLink to='/summary' variant='primary' onClick={(event) => nextStep(event)}>
+                {t('continue')}
+              </StyledLink>
             </Col>
           </Row>
         </>

@@ -5,8 +5,8 @@ import { Container, Row, Col, Image } from 'react-bootstrap';
 import Header from './components/Header';
 import Stepper from './components/Stepper';
 import Form from './components/Form';
-import doggoImg from './images/doggo.png';
 import Footer from './components/Footer';
+import doggoImg from './images/doggo.png';
 
 function App() {
   return (
