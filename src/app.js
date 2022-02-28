@@ -20,7 +20,7 @@ function App() {
               <Form />
             </Col>
             <Col lg={{ offset: 1, span: 4 }}>
-              <Image fluid src={doggoImg} alt='Dog drinking from a puddle' />
+              <Image fluid src={doggoImg} alt='Dog drinking from a puddle' className='mt-1-half' />
             </Col>
           </Row>
         </Container>

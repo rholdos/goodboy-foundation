@@ -5,7 +5,7 @@ const StyledTypeRadioButtons = styled.div`
   flex-wrap: wrap;
   margin-bottom: 3.5rem;
 
-  input[type='radio'] {
+  input {
     position: absolute;
     z-index: -1;
     opacity: 0;
@@ -15,7 +15,7 @@ const StyledTypeRadioButtons = styled.div`
   label {
     flex: 1 1 0;
     background: var(--grey-light);
-    padding: 1.5rem 3.5rem 1.5rem 1.5rem;
+    padding: 1.5rem 5.5rem 1.5rem 1.5rem;
     border: solid 1px var(--primary-light);
     transition: color var(--transition), background var(--transition), box-shadow var(--transition);
     cursor: pointer;

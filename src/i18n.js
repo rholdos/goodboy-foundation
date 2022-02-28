@@ -46,8 +46,8 @@ i18n.use(initReactI18next).init({
         emailError: 'Zadajte Váš e-mail v správnom formáte',
         phonePrefixError: 'Vyberte predvoľbu zo zoznamu',
         phoneNumberLabel: 'Telefónne číslo',
-        skNumberOption: 'Slovenské číslo',
-        czNumberOption: 'České číslo',
+        skNumberOption: 'Slovenská Republika',
+        czNumberOption: 'Česká Republika',
         phoneNumberError: 'Číslo musí obsahovať 9 číslic bez medzier (Nepovinné pole)',
         // form - summary step (3rd)
         summaryTitleNotSubmitted: 'Skontrolujte si zadané údaje',

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 const StyledStepTitle = styled.h1`
-  font-family: 'Hind'
+  width: 80%;
+  font-family: 'Hind';
   font-size: 2.875rem;
   font-weight: bold;
   line-height: 1.15;
-  letter-spacing: 1%;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2.5rem;
 `;
 
 export default StyledStepTitle;

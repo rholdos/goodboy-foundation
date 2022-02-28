@@ -8,7 +8,7 @@ import StyledStepTitle from '../styled/StepTitle';
 import StyledTypeRadioButtons from '../styled/TypeRadioButtons';
 import StyledFormGroup from '../styled/FormGroup';
 import StyledAmountRadioButtons from '../styled/AmountRadioButtons';
-import StyledFormFieldError from '../styled/FormFieldError';
+import StyledFormError from '../styled/FormError';
 import StyledButton from '../styled/Button';
 
 import { ReactComponent as WalletIcon } from '../../icons/wallet.svg';
@@ -20,9 +20,9 @@ import { setContribution } from '../../redux/actions/contributionActions';
 const GET_SHELTERS_URL = 'https://frontend-assignment-api.goodrequest.dev/api/v1/shelters';
 const FIXED_AMOUNTS = [5, 10, 15, 20, 30, 50, 100];
 
-const FirstStep = () => {
+const Contribution = () => {
   const { t } = useTranslation();
-  
+
   const currentStep = useSelector((state) => state.steps.current);
   const contributionData = useSelector((state) => state.contribution);
 
@@ -107,7 +107,7 @@ const FirstStep = () => {
           </span>
           <span className='text'>{t('typeOrganizationLabel')}</span>
         </label>
-        {errors.type && <StyledFormFieldError>{errors.type}</StyledFormFieldError>}
+        {errors.type && <StyledFormError>{errors.type}</StyledFormError>}
       </StyledTypeRadioButtons>
       {/* Shelter select */}
       <Row className='justify-content-between align-items-center mb-half'>
@@ -128,7 +128,7 @@ const FirstStep = () => {
             </option>
           ))}
         </FormSelect>
-        {errors.shelter && <StyledFormFieldError>{errors.shelter}</StyledFormFieldError>}
+        {errors.shelter && <StyledFormError>{errors.shelter}</StyledFormError>}
       </StyledFormGroup>
       {/* Amount radio buttons */}
       <span className='d-block fw-bold mb-half'>{t('amountLabel')}</span>
@@ -169,13 +169,13 @@ const FirstStep = () => {
             id='custom-value'
             value={amountType === 'custom' ? amount : ''}
             onChange={(event) => setAmount(+event.target.value)}
-          />{' '}
-          €
+          />
+          {` €`}
         </label>
-        {errors.amount && <StyledFormFieldError>{errors.amount}</StyledFormFieldError>}
+        {errors.amount && <StyledFormError>{errors.amount}</StyledFormError>}
       </StyledAmountRadioButtons>
       {/* Step buttons */}
-      <Row className='justify-content-end align-items-center mt-4'>
+      <Row className='justify-content-end align-items-center mt-3'>
         <Col xs='auto'>
           <StyledButton type='submit' variant='primary' onClick={() => nextStep()}>
             {t('continue')}
@@ -186,4 +186,4 @@ const FirstStep = () => {
   );
 };
 
-export default FirstStep;
+export default Contribution;

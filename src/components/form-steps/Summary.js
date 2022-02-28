@@ -6,14 +6,14 @@ import axios from 'axios';
 
 import StyledStepTitle from '../styled/StepTitle';
 import StyledFormGroup from '../styled/FormGroup';
-import StyledFormFieldError from '../styled/FormFieldError';
+import StyledFormError from '../styled/FormError';
 import StyledButton from '../styled/Button';
 
 import { setCurrentStep } from '../../redux/actions/stepActions';
 
 const POST_CONTRIBUTION_URL = 'https://frontend-assignment-api.goodrequest.dev/api/v1/shelters/contribute';
 
-const ThirdStep = () => {
+const Summary = () => {
   const { t } = useTranslation();
 
   const currentStep = useSelector((state) => state.steps.current);
@@ -75,7 +75,7 @@ const ThirdStep = () => {
           <h4 className='fs-sm fw-bold mb-half'>{t('summaryEmail')}</h4>
           <span className='d-block mb-1-half'>{email}</span>
           <h4 className='fs-sm fw-bold mb-half'>{t('summaryPhone')}</h4>
-          <span className='d-block mb-1-half'>
+          <span className='d-block mb-2-half'>
             {phoneNumber ? `${phonePrefix} ${phoneNumber.replace(/(\d{3})/g, '$1 ').trim()}` : t('notProvided')}
           </span>
           {/* Consent checkbox */}
@@ -88,10 +88,10 @@ const ThirdStep = () => {
               checked={consent}
               onChange={() => setConsent(!consent)}
             />
-            {errors.consent && <StyledFormFieldError>{errors.consent}</StyledFormFieldError>}
+            {errors.consent && <StyledFormError>{errors.consent}</StyledFormError>}
           </StyledFormGroup>
           {/* Step buttons */}
-          <Row className='justify-content-between align-items-center mt-4'>
+          <Row className='justify-content-between align-items-center mt-3'>
             <Col xs='auto'>
               <StyledButton type='button' variant='secondary' onClick={() => previousStep()}>
                 {t('back')}
@@ -109,4 +109,4 @@ const ThirdStep = () => {
   );
 };
 
-export default ThirdStep;
+export default Summary;

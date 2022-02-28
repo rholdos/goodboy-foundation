@@ -27,6 +27,30 @@ const StyledFormGroup = styled(FormGroup)`
     }
   }
 
+  .form-check {
+    display: flex;
+    align-items: center;
+    padding: 0;
+  }
+
+  .form-check-input {
+    width: 2rem;
+    height: 2rem;
+    border-color: var(--grey);
+    border-radius: 0.5rem;
+    margin: 0 1rem 0 0;
+
+    &:focus, &:active {
+      box-shadow: 0 0 0 1px var(--primary-light);
+    }
+
+    &:checked {
+      background-color: transparent;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5.33,13.78a.93.93,0,0,1-.63-.26L.26,9.07a.88.88,0,0,1,0-1.25.89.89,0,0,1,1.26,0l3.81,3.81,9.15-9.15a.91.91,0,0,1,1.26,0,.89.89,0,0,1,0,1.26L6,13.52A.89.89,0,0,1,5.33,13.78Z' style='fill: %23cd8b65'/%3E%3C/svg%3E%0A");
+      background-size: 60%;
+    }
+  }
+
   ${(props) =>
     props.withphoneprefix &&
     css`

@@ -4,12 +4,12 @@ const handleVariant = (variant) => {
   switch (variant) {
     case 'primary':
       return css`
-        color: var(--body);
+        color: var(--grey-light);
         background-color: var(--primary);
 
         &:hover,
         &:focus {
-          color: var(--black);
+          color: var(--white);
           background-color: var(--primary-dark);
         }
       `;
@@ -42,6 +42,7 @@ const StyledButton = styled.button`
   padding: 20px 24px;
   border: none;
   border-radius: 100px;
+  outline: none;
   box-shadow: var(--box-shadow);
   transition: background-color var(--transition), box-shadow var(--transition);
 

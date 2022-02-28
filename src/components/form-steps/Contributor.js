@@ -5,7 +5,7 @@ import { Form, Row, Col, FormLabel, FormControl } from 'react-bootstrap';
 
 import StyledStepTitle from '../styled/StepTitle';
 import StyledFormGroup from '../styled/FormGroup';
-import StyledFormFieldError from '../styled/FormFieldError';
+import StyledFormError from '../styled/FormError';
 import StyledButton from '../styled/Button';
 
 import { ReactComponent as FlagSKIcon } from '../../icons/flag-sk.svg';
@@ -20,7 +20,7 @@ const CZ_PHONE_PREFIX = '+420';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^[0-9]{9}$/;
 
-const SecondStep = () => {
+const Contributor = () => {
   const { t } = useTranslation();
 
   const currentStep = useSelector((state) => state.steps.current);
@@ -78,7 +78,7 @@ const SecondStep = () => {
           value={lastName}
           onChange={(event) => setLastName(event.target.value)}
         />
-        {errors.lastName && <StyledFormFieldError>{errors.lastName}</StyledFormFieldError>}
+        {errors.lastName && <StyledFormError>{errors.lastName}</StyledFormError>}
       </StyledFormGroup>
       {/* Email input */}
       <StyledFormGroup controlId='email' marginbottom={1}>
@@ -90,7 +90,7 @@ const SecondStep = () => {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
-        {errors.email && <StyledFormFieldError>{errors.email}</StyledFormFieldError>}
+        {errors.email && <StyledFormError>{errors.email}</StyledFormError>}
       </StyledFormGroup>
       {/* Phone input */}
       <StyledFormGroup controlId='phone-number' marginbottom={1} withphoneprefix='true'>
@@ -128,10 +128,10 @@ const SecondStep = () => {
             <option value={CZ_PHONE_PREFIX}>{t('czNumberOption')}</option>
           </select>
         </div>
-        {errors.phoneNumber && <StyledFormFieldError>{errors.phoneNumber}</StyledFormFieldError>}
+        {errors.phoneNumber && <StyledFormError>{errors.phoneNumber}</StyledFormError>}
       </StyledFormGroup>
       {/* Step buttons */}
-      <Row className='justify-content-between align-items-center mt-4'>
+      <Row className='justify-content-between align-items-center mt-3'>
         <Col xs='auto'>
           <StyledButton type='button' variant='secondary' onClick={() => previousStep()}>
             {t('back')}
@@ -147,4 +147,4 @@ const SecondStep = () => {
   );
 };
 
-export default SecondStep;
+export default Contributor;
