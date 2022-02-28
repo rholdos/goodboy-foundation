@@ -45,7 +45,10 @@ const Contributor = () => {
   };
 
   const dispatch = useDispatch();
-  const previousStep = () => dispatch(setCurrentStep(currentStep - 1));
+  const previousStep = () => {
+    dispatch(setContributor({ firstName, lastName, email, phonePrefix, phoneNumber }));
+    dispatch(setCurrentStep(currentStep - 1));
+  };
   const nextStep = (event) => {
     if (validate()) {
       dispatch(setContributor({ firstName, lastName, email, phonePrefix, phoneNumber }));
