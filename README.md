@@ -1,4 +1,4 @@
-## GoodBoy
+## GoodBoy Foundation
 
 Simple React SPA that serves as a form for the GoodBoy Foundation to support Slovak shelters for dogs.
 
@@ -9,3 +9,6 @@ Simple React SPA that serves as a form for the GoodBoy Foundation to support Slo
 - [Sass](https://sass-lang.com) and [Styled Components](https://styled-components.com)
 - [i18next](https://www.i18next.com) for localization, languages: EN, SK
 - Bootstrapped with [Create React App](https://create-react-app.dev)
+
+### Screenshot:
+![GoodBoy Foundation](screenshot.jpeg)
