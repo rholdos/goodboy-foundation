@@ -128,9 +128,9 @@ const Contribution = () => {
         </Col>
       </Row>
       <StyledFormGroup controlId='shelter' marginbottom={2.5}>
-        <FormLabel>Útulok</FormLabel>
+        <FormLabel>{t('shelterLabel')}</FormLabel>
         <FormSelect value={shelter} onChange={(event) => setShelter(+event.target.value)}>
-          <option value={undefined}>{t('shelterLabel')}</option>
+          <option value={undefined}>{t('shelterLabelDesc')}</option>
           {availableShelters.map((shelter) => (
             <option key={`shelter-${shelter.id}`} value={shelter.id}>
               {shelter.name}
