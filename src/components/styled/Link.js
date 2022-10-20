@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-const handleVariant = (variant) => {
+const variantStyles = (variant) => {
   switch (variant) {
     case 'primary':
       return css`
@@ -53,7 +53,7 @@ const StyledLink = styled(Link)`
     box-shadow: var(--box-shadow-light);
   }
 
-  ${({ variant }) => handleVariant(variant)};
+  ${({ variant }) => variantStyles(variant)};
 `;
 
 export default StyledLink;

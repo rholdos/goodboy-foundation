@@ -121,7 +121,7 @@ const Contribution = () => {
       {/* Shelter select */}
       <Row className='justify-content-between align-items-center mb-half'>
         <Col xs='auto'>
-          <span className='fw-bold'>{t('aboutProject')}</span>
+          <span className='fw-bold'>{t('shelterSelectLabel')}</span>
         </Col>
         <Col xs='auto'>
           <span className='fs-sm fw-bold'>{t(type === 'organization' ? 'notRequired' : 'required')}</span>
