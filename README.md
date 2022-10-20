@@ -7,5 +7,5 @@ Simple React SPA that serves as a form for the GoodBoy Foundation to support Slo
 - [Redux](https://redux.js.org) for state management
 - [Axios](https://axios-http.com) for making API calls
 - [Sass](https://sass-lang.com) and [Styled Components](https://styled-components.com)
-- [i18next](https://www.i18next.com) for localization
+- [i18next](https://www.i18next.com) for localization, languages: EN, SK
 - Bootstrapped with [Create React App](https://create-react-app.dev)
